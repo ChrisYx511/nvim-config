@@ -36,3 +36,4 @@ if not vim.g.vscode then
     vim.keymap.set({"n", "v", "i"}, "<C-i>", vim.cmd.TabnineChat)
 end
 
+vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
