@@ -14,7 +14,7 @@ return {
                 model = "claude-sonnet-4",
                 agent = "copilot",
                 window = {
-                    width = 0.33,
+                    width = 0.25,
                 },
             }
         end
