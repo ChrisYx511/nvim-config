@@ -33,7 +33,7 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 if not vim.g.vscode then
-    vim.keymap.set({"n", "v", "i"}, "<C-i>", vim.cmd.TabnineChat)
+    vim.keymap.set({"n", "v", "i"}, "<C-i>", vim.cmd.CopilotChat)
 end
 
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
