@@ -1,8 +1,31 @@
 return {
     'nvim-lualine/lualine.nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
-    init = function()
-        require('lualine').setup()
+    cond = function()
+        return not vim.g.vscode -- disable in vscode
+    end,
+    config = function()
+        require('lualine').setup {
+            sections = {
+                lualine_c = {
+                    {
+                        'filename',
+                        file_status = true, -- displays file status (readonly status, modified status)
+                        path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
+                    }
+                }
+            },
+            inactive_sections = {
+                lualine_c = {
+                    {
+                        'filename',
+                        file_status = true, -- displays file status (readonly status, modified status)
+                        path = 1            -- 0 = just filename, 1 = relative path, 2 = absolute path
+                    }
+                }
+            },
+
+        }
     end
 
 }
