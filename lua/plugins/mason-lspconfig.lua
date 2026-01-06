@@ -1,30 +1,50 @@
 return {
     "mason-org/mason-lspconfig.nvim",
-    opts = {},
+    opts = {
+        automatic_enable = {
+            exclude = {
+                "metals",
+                "denols",
+                "ts_ls"
+            }
+        }
+    },
     cond = (function() return not vim.g.vscode end),
     dependencies = {
         { "mason-org/mason.nvim", opts = {} },
         "neovim/nvim-lspconfig",
     },
     lazy = false,
-    --    config = function()
+    config = function(_, opts)
+        vim.lsp.config('denols', {
+            root_markers = { "deno.json", "deno.jsonc" },
+        })
 
-    --        vim.keymap.set('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
-    --	vim.keymap.set('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
-    --	vim.keymap.set('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
-    --	vim.keymap.set('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
-    --	vim.keymap.set('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    --	vim.keymap.set('n','gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
-    --	vim.keymap.set('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
-    --	vim.keymap.set('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-    --	vim.keymap.set('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-    --	vim.keymap.set('n','<leader>ah','<cmd>lua vim.lsp.buf.hover()<CR>')
-    --	vim.keymap.set('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
-    --	vim.keymap.set('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
-    --	vim.keymap.set('n','<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
-    --	vim.keymap.set('n','<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-    --	vim.keymap.set('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
-    --	vim.keymap.set('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
-    -- end
+        vim.lsp.config('ts_ls', {
+            root_markers = { "package.json" },
+            root_dir = function(bufnr, on_dir)
+                -- The project root is where the LSP can be started from
+                -- As stated in the documentation above, this LSP supports monorepos and simple projects.
+                -- We select then from the project root, which is identified by the presence of a package
+                -- manager lock file.
+                local root_markers = { 'package-lock.json', 'yarn.lock', 'pnpm-lock.yaml', 'bun.lockb', 'bun.lock' }
+                -- Give the root markers equal priority by wrapping them in a table
+                root_markers = vim.fn.has('nvim-0.11.3') == 1 and { root_markers }
+                    or vim.list_extend(root_markers)
+                print(root_markers)
+                local project_root = vim.fs.root(bufnr, root_markers)
+                if project_root then
+                    on_dir(project_root)
+                end
+            end,
 
+            settings = {
+                test = "a"
+            },
+            workspace_required = true
+        })
+        require("mason").setup({})
+        require("mason-lspconfig").setup(opts)
+        vim.lsp.enable({ "ts_ls" })
+    end
 }
