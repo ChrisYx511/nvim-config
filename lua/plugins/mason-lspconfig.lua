@@ -14,7 +14,7 @@ return {
         { "mason-org/mason.nvim", opts = {} },
         "neovim/nvim-lspconfig",
     },
-    lazy = false,
+    event = { "BufReadPre", "BufNewFile" },
     config = function(_, opts)
         vim.lsp.config('denols', {
             root_markers = { "deno.json", "deno.jsonc" },
@@ -31,16 +31,12 @@ return {
                 -- Give the root markers equal priority by wrapping them in a table
                 root_markers = vim.fn.has('nvim-0.11.3') == 1 and { root_markers }
                     or vim.list_extend(root_markers)
-                print(root_markers)
                 local project_root = vim.fs.root(bufnr, root_markers)
                 if project_root then
                     on_dir(project_root)
                 end
             end,
 
-            settings = {
-                test = "a"
-            },
             workspace_required = true
         })
         require("mason").setup({})

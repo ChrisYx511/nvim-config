@@ -1,64 +1,50 @@
 vim.g.mapleader = " "
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
-vim.keymap.set("v", "K", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "J", ":m '<-2<CR>gv=gv")
 
+-- File explorer
+vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open file explorer" })
+
+-- Move lines in visual mode
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+-- Join lines keeping cursor position
 vim.keymap.set("n", "J", "mzJ`z")
+
+-- Half-page jump with cursor centered
 vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- Search with cursor centered
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
--- greatest remap ever
-vim.keymap.set("x", "<leader>p", [["_dP]])
+-- Paste without yanking replaced text
+vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste (no yank)" })
 
--- next greatest remap ever : asbjornHaland
-vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+-- Yank to system clipboard
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]], { desc = "Yank to clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank line to clipboard" })
 
-vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d")
+-- Delete to void register
+vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d", { desc = "Delete (no yank)" })
 
--- This is going to get me cancelled
+-- Escape from insert mode
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
+-- Disable ex mode
 vim.keymap.set("n", "Q", "<nop>")
 
-vim.keymap.set("n", "<C-k>", "<cmd>cnext<CR>zz")
-vim.keymap.set("n", "<C-j>", "<cmd>cprev<CR>zz")
-vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
-vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
+-- Window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
+vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to below window" })
+vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to above window" })
+vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
 
-vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])
-vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
+-- Search and replace word under cursor
+vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Search & replace word" })
 
-if not vim.g.vscode then
-    vim.keymap.set({ "n", "v", "i" }, "<C-S-I>", vim.cmd.CopilotChat)
-end
+-- Make file executable
+vim.keymap.set("n", "<leader>cx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make file executable" })
 
+-- Terminal escape
 vim.keymap.set("t", "<Esc>", "<C-\\><C-n>")
-
-
-vim.keymap.set('n', '<F5>', function() require('dap').continue() end)
-vim.keymap.set('n', '<F10>', function() require('dap').step_over() end)
-vim.keymap.set('n', '<F11>', function() require('dap').step_into() end)
-vim.keymap.set('n', '<F12>', function() require('dap').step_out() end)
-vim.keymap.set('n', '<Leader>b', function() require('dap').toggle_breakpoint() end)
-vim.keymap.set('n', '<Leader>B', function() require('dap').set_breakpoint() end)
-vim.keymap.set('n', '<Leader>lp',
-    function() require('dap').set_breakpoint(nil, nil, vim.fn.input('Log point message: ')) end)
-vim.keymap.set('n', '<Leader>dr', function() require('dap').repl.open() end)
-vim.keymap.set('n', '<Leader>dl', function() require('dap').run_last() end)
-vim.keymap.set({ 'n', 'v' }, '<Leader>dh', function()
-    require('dap.ui.widgets').hover()
-end)
-vim.keymap.set({ 'n', 'v' }, '<Leader>dp', function()
-    require('dap.ui.widgets').preview()
-end)
-vim.keymap.set('n', '<Leader>df', function()
-    local widgets = require('dap.ui.widgets')
-    widgets.centered_float(widgets.frames)
-end)
-vim.keymap.set('n', '<Leader>ds', function()
-    local widgets = require('dap.ui.widgets')
-    widgets.centered_float(widgets.scopes)
-end)

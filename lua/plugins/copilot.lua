@@ -1,22 +1,25 @@
 return {
-    {
-        "CopilotC-Nvim/CopilotChat.nvim",
-        dependencies = {
-            { "zbirenbaum/copilot.lua" },             -- or zbirenbaum/copilot.lua
-            { "nvim-lua/plenary.nvim", branch = "master" }, -- for curl, log and async functions
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    build = ":Copilot auth",
+    event = "BufReadPost",
+    cond = function() return not vim.g.vscode end,
+    opts = {
+        suggestion = {
+            -- When ai_cmp is true, blink.cmp handles ghost text via blink-copilot
+            enabled = not vim.g.ai_cmp,
+            auto_trigger = true,
+            hide_during_completion = vim.g.ai_cmp,
+            keymap = {
+                accept = false, -- handled by blink.cmp
+                next = "<M-]>",
+                prev = "<M-[>",
+            },
         },
-        cond = function() return not vim.g.vscode end,
-        build = "make tiktoken",                      -- Only on MacOS or Linux
-        -- See Commands section for default commands if you want to lazy load on them
-        config = function()
-            require("copilot").setup({})
-            require("CopilotChat").setup {
-                model = "claude-sonnet-4",
-                agent = "copilot",
-                window = {
-                    width = 0.25,
-                },
-            }
-        end
+        panel = { enabled = false },
+        filetypes = {
+            markdown = true,
+            help = true,
+        },
     },
 }

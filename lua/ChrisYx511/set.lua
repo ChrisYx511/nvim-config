@@ -31,3 +31,8 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
+-- Copilot completions flow through blink.cmp (ghost text + menu)
+vim.g.ai_cmp = true
+vim.opt.laststatus = 3
+vim.opt.showmode = false

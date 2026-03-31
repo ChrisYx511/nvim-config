@@ -3,67 +3,25 @@ return {
     ft = { "scala", "sbt", "java" },
     dependencies = {
         "mfussenegger/nvim-dap",
-        config = function(self, opts)
-            -- Debug settings if you're using nvim-dap
-            local dap = require("dap")
-
-            dap.configurations.scala = {
-                {
-                    type = "scala",
-                    request = "launch",
-                    name = "RunOrTest",
-                    metals = {
-                        runType = "runOrTestFile",
-                        --args = { "firstArg", "secondArg", "thirdArg" }, -- here just as an example
-                    },
-                },
-                {
-                    type = "scala",
-                    request = "launch",
-                    name = "Test Target",
-                    metals = {
-                        runType = "testTarget",
-                    },
-                },
-            }
-        end
     },
     opts = function()
         local metals_config = require("metals").bare_config()
         metals_config.init_options.statusBarProvider = "off"
 
         metals_config.on_attach = function(client, bufnr)
-            vim.keymap.set("n", "<leader>cl", vim.lsp.codelens.run)
-
-            vim.keymap.set("n", "<leader>ws", function()
-                require("metals").hover_worksheet()
-            end)
-
-            -- all workspace diagnostics
-            vim.keymap.set("n", "<leader>aa", vim.diagnostic.setqflist)
-
-            -- all workspace errors
-            vim.keymap.set("n", "<leader>ae", function()
-                vim.diagnostic.setqflist({ severity = "E" })
-            end)
-
-            -- all workspace warnings
-            vim.keymap.set("n", "<leader>aw", function()
-                vim.diagnostic.setqflist({ severity = "W" })
-            end)
-
-            vim.keymap.set("n", "[c", function()
-                vim.diagnostic.goto_prev({ wrap = false })
-            end)
-
-            vim.keymap.set("n", "]c", function()
-                vim.diagnostic.goto_next({ wrap = false })
-            end)
-
-            vim.keymap.set("n", "<leader>m", function()
-                require "telescope".extensions.metals.commands()
+            local function map(mode, l, r, desc)
+                vim.keymap.set(mode, l, r, { buffer = bufnr, desc = desc })
             end
-            )
+
+            map("n", "<leader>mc", vim.lsp.codelens.run, "Metals codelens")
+            map("n", "<leader>mw", function() require("metals").hover_worksheet() end, "Metals hover worksheet")
+            map("n", "<leader>ma", vim.diagnostic.setqflist, "All workspace diagnostics")
+            map("n", "<leader>me", function() vim.diagnostic.setqflist({ severity = "E" }) end, "Workspace errors")
+            map("n", "<leader>mW", function() vim.diagnostic.setqflist({ severity = "W" }) end, "Workspace warnings")
+            map("n", "<leader>mm", function() require("telescope").extensions.metals.commands() end, "Metals commands")
+
+            map("n", "[d", function() vim.diagnostic.jump({ count = -1, float = true }) end, "Prev diagnostic")
+            map("n", "]d", function() vim.diagnostic.jump({ count = 1, float = true }) end, "Next diagnostic")
 
             require("metals").setup_dap()
         end
@@ -79,5 +37,5 @@ return {
             end,
             group = nvim_metals_group,
         })
-    end
+    end,
 }
