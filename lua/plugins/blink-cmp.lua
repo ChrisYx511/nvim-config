@@ -29,9 +29,12 @@ return {
             ghost_text = {
                 enabled = vim.g.ai_cmp,
             },
+            list = {
+                selection = { auto_insert = true }
+            },
         },
         sources = {
-            default = { "lsp", "path", "snippets", "buffer", "copilot" },
+            default = { "lazydev", "lsp", "path", "snippets", "buffer", "copilot" },
             providers = {
                 copilot = {
                     name = "copilot",

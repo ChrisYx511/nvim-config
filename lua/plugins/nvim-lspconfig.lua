@@ -47,6 +47,7 @@ return {
                         vim.wo[win].foldmethod = "expr"
                         vim.wo[win].foldexpr = "v:lua.vim.lsp.foldexpr()"
                     end
+                    vim.opt.foldlevelstart = 99
                 end
             end,
         })
