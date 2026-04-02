@@ -223,6 +223,7 @@ Inside Fugitive (`:Git` / `<leader>gs`):
 | `<S-l>` / `]b` | Next buffer | n |
 | `<leader>bp` | Toggle pin | n |
 | `<leader>bP` | Delete non-pinned buffers | n |
+| `<leader>bd` | Delete buffer | n |
 | `<leader>bo` | Delete other buffers | n |
 | `<leader>bl` / `<leader>br` | Delete buffers left/right | n |
 | `<leader>bj` | Pick buffer | n |

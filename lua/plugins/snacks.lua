@@ -35,6 +35,7 @@ return {
         },
     },
     keys = {
+        { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete buffer" },
         { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss notifications" },
         { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification history" },
         -- Terminal
