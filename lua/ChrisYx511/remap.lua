@@ -1,8 +1,5 @@
 vim.g.mapleader = " "
 
--- File explorer
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex, { desc = "Open file explorer" })
-
 -- Move lines in visual mode
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -39,6 +36,19 @@ vim.keymap.set("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 vim.keymap.set("n", "<C-j>", "<C-w>j", { desc = "Move to below window" })
 vim.keymap.set("n", "<C-k>", "<C-w>k", { desc = "Move to above window" })
 vim.keymap.set("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
+
+-- Splits
+vim.keymap.set("n", "<leader>wv", "<C-w>v", { desc = "Split vertical" })
+vim.keymap.set("n", "<leader>ws", "<C-w>s", { desc = "Split horizontal" })
+vim.keymap.set("n", "<leader>wq", "<C-w>q", { desc = "Close split" })
+vim.keymap.set("n", "<leader>wo", "<C-w>o", { desc = "Close other splits" })
+vim.keymap.set("n", "<leader>w=", "<C-w>=", { desc = "Equal width splits" })
+
+-- Resize panes
+vim.keymap.set("n", "<C-Up>", "<cmd>resize +2<CR>", { desc = "Increase height" })
+vim.keymap.set("n", "<C-Down>", "<cmd>resize -2<CR>", { desc = "Decrease height" })
+vim.keymap.set("n", "<C-Right>", "<cmd>vertical resize +2<CR>", { desc = "Increase width" })
+vim.keymap.set("n", "<C-Left>", "<cmd>vertical resize -2<CR>", { desc = "Decrease width" })
 
 -- Search and replace word under cursor
 vim.keymap.set("n", "<leader>sr", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Search & replace word" })

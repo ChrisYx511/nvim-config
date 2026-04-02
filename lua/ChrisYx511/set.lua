@@ -36,3 +36,7 @@ vim.opt.splitbelow = true
 vim.g.ai_cmp = true
 vim.opt.laststatus = 3
 vim.opt.showmode = false
+
+-- Disable netrw (replaced by mini.files)
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1

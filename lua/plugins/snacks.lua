@@ -37,5 +37,10 @@ return {
     keys = {
         { "<leader>un", function() Snacks.notifier.hide() end, desc = "Dismiss notifications" },
         { "<leader>nh", function() Snacks.notifier.show_history() end, desc = "Notification history" },
+        -- Terminal
+        { "<leader>tt", function() Snacks.terminal() end, desc = "Toggle terminal" },
+        { "<leader>tv", function() Snacks.terminal(nil, { win = { position = "right", width = 0.4 } }) end, desc = "Terminal (vertical split)" },
+        { "<leader>th", function() Snacks.terminal(nil, { win = { position = "bottom", height = 0.3 } }) end, desc = "Terminal (horizontal split)" },
+        { "<C-/>", function() Snacks.terminal() end, desc = "Toggle terminal", mode = { "n", "t" } },
     },
 }

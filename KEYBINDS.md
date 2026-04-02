@@ -6,7 +6,6 @@ Leader: `<Space>`
 
 | Key | Action | Mode |
 |-----|--------|------|
-| `<leader>pv` | Open file explorer | n |
 | `J` / `K` | Move lines | v |
 | `J` | Join lines (cursor stays) | n |
 | `<C-d>` / `<C-u>` | Half-page jump (centered) | n |
@@ -21,6 +20,27 @@ Leader: `<Space>`
 | `<leader>sr` | Search & replace word under cursor | n |
 | `<leader>cx` | Make file executable | n |
 
+## File Explorer (mini.files)
+
+| Key | Action | Mode |
+|-----|--------|------|
+| `<leader>e` / `<leader>pv` | Explorer (current file) | n |
+| `<leader>E` | Explorer (cwd) | n |
+
+Inside mini.files:
+
+| Key | Action |
+|-----|--------|
+| `h` | Go to parent directory |
+| `H` | Go to parent and close child |
+| `l` | Go into directory / open file |
+| `L` | Go into and close parent |
+| `j` / `k` | Navigate entries |
+| `=` | Synchronize (apply edits) |
+| `g?` | Show help |
+
+You can rename, create, delete, and move files by editing the buffer directly, then pressing `=` to synchronize.
+
 ## Window Navigation
 
 | Key | Action | Mode |
@@ -29,6 +49,43 @@ Leader: `<Space>`
 | `<C-j>` | Move to below window | n |
 | `<C-k>` | Move to above window | n |
 | `<C-l>` | Move to right window | n |
+
+## Window / Splits (`<leader>w`)
+
+| Key | Action | Mode |
+|-----|--------|------|
+| `<leader>wv` | Split vertical | n |
+| `<leader>ws` | Split horizontal | n |
+| `<leader>wq` | Close split | n |
+| `<leader>wo` | Close other splits | n |
+| `<leader>w=` | Equal width splits | n |
+
+## Resize Panes
+
+| Key | Action | Mode |
+|-----|--------|------|
+| `<C-Up>` | Increase height | n |
+| `<C-Down>` | Decrease height | n |
+| `<C-Right>` | Increase width | n |
+| `<C-Left>` | Decrease width | n |
+
+## Terminal (`<leader>t`)
+
+| Key | Action | Mode |
+|-----|--------|------|
+| `<leader>tt` | Toggle terminal | n |
+| `<leader>tv` | Terminal (vertical split) | n |
+| `<leader>th` | Terminal (horizontal split) | n |
+| `<C-/>` | Toggle terminal | n,t |
+
+## Tabs
+
+| Key | Action | Mode |
+|-----|--------|------|
+| `gt` | Next tab | n |
+| `gT` | Previous tab | n |
+| `:tabnew` | New tab | cmd |
+| `:tabclose` | Close tab | cmd |
 
 ## Completion (blink.cmp)
 
@@ -45,6 +102,8 @@ Leader: `<Space>`
 
 | Key | Action | Mode |
 |-----|--------|------|
+| `<leader>cp` | Markdown preview toggle | n (md) |
+| `<leader>cH` | Switch source/header (C/C++) | n (c/cpp) |
 | `gd` | Goto definition | n |
 | `gD` | Goto declaration | n |
 | `gr` | References | n |
@@ -61,6 +120,8 @@ Leader: `<Space>`
 | `<leader>cC` | Refresh codelens | n |
 | `<leader>ci` | Incoming calls | n |
 | `<leader>co` | Outgoing calls | n |
+| `<leader>cs` | Symbols (Trouble) | n |
+| `<leader>cl` | LSP defs/refs (Trouble) | n |
 | `]d` / `[d` | Next/prev diagnostic | n |
 | `<leader>uh` | Toggle inlay hints | n |
 
@@ -69,18 +130,30 @@ Leader: `<Space>`
 | Key | Action | Mode |
 |-----|--------|------|
 | `<leader>dc` / `<F5>` | Continue | n |
+| `<leader>da` | Run with args | n |
+| `<leader>dC` | Run to cursor | n |
+| `<leader>dg` | Go to line (no execute) | n |
 | `<leader>do` / `<F10>` | Step over | n |
 | `<leader>di` / `<F11>` | Step into | n |
 | `<leader>dO` / `<F12>` | Step out | n |
+| `<leader>dj` | Down (call stack) | n |
+| `<leader>dk` | Up (call stack) | n |
 | `<leader>db` | Toggle breakpoint | n |
-| `<leader>dB` | Set breakpoint | n |
+| `<leader>dB` | Breakpoint condition | n |
 | `<leader>dL` | Log point | n |
-| `<leader>dr` | REPL | n |
+| `<leader>dr` | Toggle REPL | n |
 | `<leader>dl` | Run last | n |
+| `<leader>dt` | Terminate | n |
+| `<leader>dP` | Pause | n |
+| `<leader>du` | Toggle DAP UI | n |
+| `<leader>de` | Eval expression | n,v |
 | `<leader>dh` | Hover | n,v |
 | `<leader>dp` | Preview | n,v |
+| `<leader>dw` | Widgets | n |
 | `<leader>df` | Frames | n |
 | `<leader>ds` | Scopes | n |
+| `<leader>dGt` | Debug Go test | n (Go) |
+| `<leader>dGl` | Debug last Go test | n (Go) |
 
 ## Harpoon (`<leader>h`)
 
@@ -128,6 +201,20 @@ Leader: `<Space>`
 | `<leader>ghb` | Blame line | n |
 | `<leader>ghd` | Diff this | n |
 
+Inside Fugitive (`:Git` / `<leader>gs`):
+
+| Key | Action |
+|-----|--------|
+| `s` | Stage file/hunk |
+| `u` | Unstage file/hunk |
+| `=` | Toggle inline diff |
+| `dv` | Open vertical diff split |
+| `cc` | Commit |
+| `ca` | Amend commit |
+| `X` | Discard changes |
+| `]c` / `[c` | Next/prev hunk |
+| `gq` | Close fugitive window |
+
 ## Bufferline (`<leader>b`)
 
 | Key | Action | Mode |
@@ -172,6 +259,16 @@ Leader: `<Space>`
 | `<leader>qs` | Save session | n |
 | `<leader>qa` | Toggle autosave | n |
 
+## Diagnostics (`<leader>x`)
+
+| Key | Action | Mode |
+|-----|--------|------|
+| `<leader>xx` | Diagnostics (Trouble) | n |
+| `<leader>xX` | Buffer diagnostics (Trouble) | n |
+| `<leader>xt` | TODO list (Trouble) | n |
+| `<leader>xL` | Location list (Trouble) | n |
+| `<leader>xQ` | Quickfix list (Trouble) | n |
+
 ## UI Toggles (`<leader>u`)
 
 | Key | Action | Mode |
@@ -181,12 +278,6 @@ Leader: `<Space>`
 | `<leader>uN` | Toggle Sidekick NES | n |
 | `<leader>un` | Dismiss notifications | n |
 
-## Diagnostics (`<leader>x`)
-
-| Key | Action | Mode |
-|-----|--------|------|
-| `<leader>xt` | TODO list (Trouble) | n |
-
 ## Noice (`<leader>sn`)
 
 | Key | Action | Mode |
@@ -194,6 +285,23 @@ Leader: `<Space>`
 | `<leader>snl` | Last message | n |
 | `<leader>snh` | Message history | n |
 | `<leader>snd` | Dismiss all | n |
+
+## Text Objects (mini.ai)
+
+Usable with operators (`d`, `c`, `y`) and visual mode (`v`). Prefix `a` = around, `i` = inside.
+
+| Key | Selects |
+|-----|---------|
+| `af` / `if` | Function |
+| `ac` / `ic` | Class |
+| `ao` / `io` | Block / conditional / loop |
+| `at` / `it` | HTML/XML tag |
+| `ad` / `id` | Digits |
+| `ae` / `ie` | Word (camelCase/snake_case aware) |
+| `au` / `iu` | Function call (with dot) |
+| `aU` / `iU` | Function call (without dot) |
+
+Built-in Vim text objects still work: `ab`/`ib` (brackets), `aq`/`iq` (quotes), `aa`/`ia` (argument), etc.
 
 ## Navigation Brackets
 
@@ -203,6 +311,12 @@ Leader: `<Space>`
 | `]b` / `[b` | Next/prev buffer | n |
 | `]t` / `[t` | Next/prev TODO | n |
 | `]h` / `[h` | Next/prev git hunk | n |
+| `]f` / `[f` | Next/prev function start | n,x,o |
+| `]F` / `[F` | Next/prev function end | n,x,o |
+| `]c` / `[c` | Next/prev class start | n,x,o |
+| `]C` / `[C` | Next/prev class end | n,x,o |
+| `]a` / `[a` | Next/prev parameter start | n,x,o |
+| `]A` / `[A` | Next/prev parameter end | n,x,o |
 
 ## Other
 
